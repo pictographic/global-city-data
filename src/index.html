@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Cities</title>
+
+  <style type="text/css">
+    html, body, #canvas{
+      width: 100%;
+      height: 100%;
+
+      font-family: Helvetica, sans-serif;
+    }
+
+    body{
+      background-color: #efefef;
+    }
+
+    .container{
+      width: 95%;
+      left: 50%;
+      margin:auto;
+    }
+
+    #canvas a{
+      text-decoration: none;
+      color: rgba(204, 51, 0, 1);
+      display:inline-block;
+      background: #fff;
+      padding: 1px 2px;
+      margin:1px 2px;
+      font-size: 14px;
+    }
+    #canvas a.selected, #canvas a:hover{
+      color: #fff;
+      background: rgba(204, 51, 0, 1);
+    }
+    .city-item .circle{
+      border-radius: 100%;
+      border: 0px solid #000;
+      transition: width 200ms;
+      transition: height 200ms;
+      top:0;
+      left:0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .city-item .circle.data2{
+      left:0;
+      background-color: rgba(255, 204, 51, 0.4);
+    }
+
+    .city-item .circle.data1{
+          left:auto;
+          right:0;
+          background-color: rgba(204, 51, 0, 0.5);
+    }
+    .city-item h3{
+      margin:1px;
+      padding:0;
+      text-align: center;
+      font-size: 14px;
+      color: #000;
+      font-weight: normal;
+    }
+
+    .city-item h4{
+      position: absolute;
+      bottom:0;
+      margin:1px;
+      padding: 0;
+      font-size: 24px;
+    }
+
+    h4.data2{
+      left: 0;
+      right:auto;
+      color: rgba(255, 204, 51, 1);
+    }
+
+    h4.data1{
+      text-align: center;
+      width: 100%;
+      color: rgba(0,0,0, 0.2);
+    }
+
+    .city-item{
+      background-color: #fff;
+      width: 118px;
+      height: 118px;
+      display:inline-block;
+      margin:1px ;
+      position: relative;
+      padding:0;
+    }
+    .stat-selector{
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+  <h1>Cities of the world</h1>
+  <h2>By <a href="http://admataz.com">admataz</a></h2>
+
+  <p>My idea here is simplicity, and limiting the complex and diverse set of data to a view with single facets of the data that allow comparison.</p>
+
+  <p>I started this project as a tool-sharpening exercise. My goal was, after a recent hiatus from data visualisation work, to get to know some of the tools again, and get my head back into dealing with data - the processes of sourcing, cleaning, exploring, wrangling and transforming into something visual and interactive. You can read more and download the full source on github.</p>
+
+  <p>I found this collection of city data at the Greater London Authority <a href="http://data.london.gov.uk/dataset/global-city-data" target="_blank">London Datastore</a>. For a more complete explanation of the figures, their units of measurement, and what they mean  refer to the original <a href="http://www.nyc.gov/html/ia/gprb/html/global/global.shtml" target="_blank">New York City Global City database</a> and the cited sources. For my purposes, this collection of numbers was enough for this experiment - but a better annotated and labeled version would be required to make this a full piece of data-driven communication.</p>
+
+  <p>Explore by selecting a dataset…</p>
+
+
+  <div id="canvas">
+
+  </div>
+
+  <p>Created by <a href="http://admataz.com">admataz</a> for fun and learning and experimentation.  Original concpets and code &copy; 2016 Adam Davis licensed under <a href="./license.txt">MIT</a>.</p>
+
+</div>
+<script type="text/javascript" src="./js/global_cities.min.js"></script>
+</body>
+</html>

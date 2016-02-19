@@ -1,0 +1,29 @@
+{
+  "name": "global_cities",
+  "version": "1.0.0",
+  "description": "dataviz of global city stats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "browserify-js": "browserify --debug  -t [ babelify --presets [ react es2015 ] ] ./src/index.js | exorcist ./dist/js/global_cities.js.map  > ./dist/js/global_cities.js",
+    "uglify-js": "uglifyjs ./dist/js/global_cities.js -o ./dist/js/global_cities.min.js -c --source-map ./dist/js/global_cities.u.js.map --source-map-url ./global_cities.u.js.map  --in-source-map ./dist/js/global_cities.js.map",
+    "process-js": "npm run browserify-js && npm run uglify-js && cp ./src/index.html ./dist/index.html",
+    "watch-js": "fsmonitor -d './src' -s  '+*.html' '+*.js' npm run process-js",
+    "watch-json": "fsmonitor -d './src' '+*.json' npm run process-js",
+    "watch": "npm run watch-js & npm run watch-json"
+  },
+  "keywords": [
+    "dataviz"
+  ],
+  "author": "Adam Davis <adam@admataz.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "d3-scale": "^0.6.1",
+    "lodash": "^4.3.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  }
+}

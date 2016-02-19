@@ -1,0 +1,8 @@
+splitrows col: column1 on: '\n' quote: '\"'
+split col: column1 on: ',' limit: 70 quote: '\"'
+replace col: * on: '\"' with: '' global: true
+annotatecolumn col: column3 key: 'hidden' value: 'true'
+delete row: empty([column2])
+delete row: empty([column4])
+annotatecolumn col: column3 key: 'hidden' value: 'false'
+drop col: column3

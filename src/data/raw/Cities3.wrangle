@@ -1,0 +1,37 @@
+splitrows col: column1 on: '\n' quote: '\"'
+split col: column1 on: ',' limit: 45 quote: '\"'
+replace col: * on: '\"' with: '' global: true
+header
+drop col: People
+drop col: Economy
+drop col: Transportation
+drop col: Education
+drop col: Tourism
+drop col: Health
+drop col: Culture
+drop col: Environment
+set col: City_Area_km2 value: null() row: mismatched(City_Area_km2, ['Float'])
+set col: City_Population_millions value: 23.02 row: matches([City_Population_millions], `Resident Population: 23.02 Registered Population: 14.12`)
+set col: Annual_Population_Growth value: 0.0172 row: matches([Annual_Population_Growth], `nt Population: 1.72{any} Registered Population: 0.64{any}{end}`)
+set col: Metro_Population_millions value: 19.21 row: matches([Metro_Population_millions], `Resident Population: 19.21 Registered Population \(population with Hukou\): 13.79`)
+set col: Metro_Area_km2 value: null() row: matches([Metro_Area_km2], `-----`)
+set col: Metro_Population_millions value: null() row: mismatched(Metro_Population_millions, ['Float'])
+set col: Annual_Population_Growth value: null() row: mismatched(Annual_Population_Growth, ['Float'])
+drop col: Public_Transportation
+drop col: Annual_Tourism_Revenue_US_billions
+drop col: Retrofitted_City_Vehicle_Fleet
+settype col: Metro_Area_km2 type: 'Float'
+annotatecolumn col: Students_Enrolled_in_Higher_Education key: 'hidden' value: 'true'
+annotatecolumn col: Students_Enrolled_in_Higher_Education key: 'hidden' value: 'false'
+settype col: Foreign_Born type: 'Float'
+settype col: Poverty_Rate type: 'Float'
+settype col: Mass_Transit_Commuters type: 'Float'
+settype col: Percent_of_Population_with_Higher_Education type: 'Float'
+settype col: Total_Tourists_Annually_millions type: 'Float'
+settype col: Foreign_Tourists_Annually_millions type: 'Float'
+settype col: Domestic_Tourists_Annually_millions type: 'Float'
+settype col: Hotel_Rooms_thousands type: 'Float'
+settype col: Life_Expectancy_in_Years_Male type: 'Float'
+settype col: Life_Expectancy_in_Years_Female type: 'Float'
+settype col: Physicians_per_100_000_People type: 'Float'
+settype col: Green_Spaces_km2 type: 'Float'
