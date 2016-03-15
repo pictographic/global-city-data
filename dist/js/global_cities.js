@@ -38101,15 +38101,23 @@ var City = _react2.default.createClass({
       "div",
       { className: "city-item" },
       _react2.default.createElement(
-        "h3",
-        null,
-        this.props.city.City
+        "div",
+        { className: "headings" },
+        _react2.default.createElement(
+          "h3",
+          null,
+          this.props.city.City
+        ),
+        _react2.default.createElement(
+          "h4",
+          { className: "data1" },
+          this.props.city[this.props.dataKey]
+        )
       ),
-      _react2.default.createElement("div", { className: "circle data1", style: { top: (100 - v) / 2 + '%', left: (100 - v) / 2 + '%', width: v + '%', height: v + '%' } }),
       _react2.default.createElement(
-        "h4",
-        { className: "data1" },
-        this.props.city[this.props.dataKey]
+        "div",
+        { className: "circleContainer" },
+        _react2.default.createElement("div", { className: "circle data1", style: { top: (100 - v) / 2 + '%', left: (100 - v) / 2 + '%', width: v + '%', height: v + '%' } })
       )
     );
   }

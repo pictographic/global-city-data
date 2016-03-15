@@ -11,7 +11,9 @@ var LinkItem = React.createClass({
 
 
   render(){
-      return <a href={'#' + this.props.id } ref="clickItem" onClick={this.onClick} className={ (this.props.id === this.props.selected)? 'selected': '' }> {this.props.id.replace(/_/g,' ')} </a>
+      return (
+          <a href={'#' + this.props.id } ref="clickItem" onClick={this.onClick} className={ (this.props.id === this.props.selected)? 'selected': '' }> {this.props.id.replace(/_/g,' ')} </a>
+      );
   }
 });
 

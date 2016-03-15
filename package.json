@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "browserify-js": "browserify --debug  -t [ babelify --presets [ react es2015 ] ] ./src/index.js | exorcist ./dist/js/global_cities.js.map  > ./dist/js/global_cities.js",
+    "browserify-js": "mkdir -p ./dist/js && browserify --debug  -t [ babelify --presets [ react es2015 ] ] ./src/index.js | exorcist ./dist/js/global_cities.js.map  > ./dist/js/global_cities.js",
     "uglify-js": "uglifyjs ./dist/js/global_cities.js -o ./dist/js/global_cities.min.js -c --source-map ./dist/js/global_cities.u.js.map --source-map-url ./global_cities.u.js.map  --in-source-map ./dist/js/global_cities.js.map",
     "process-js": "npm run browserify-js && npm run uglify-js && cp ./src/index.html ./dist/index.html",
     "watch-js": "fsmonitor -d './src' -s  '+*.html' '+*.js' npm run process-js",

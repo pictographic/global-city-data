@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Global Cities</title>
+  <title>Global Cities on Pictographic.io</title>
 
   <style type="text/css">
+
+  .cf:before,
+  .cf:after {
+      content: " "; /* 1 */
+      display: table; /* 2 */
+  }
+
+  .cf:after {
+      clear: both;
+  }
+
+  .cf {
+      *zoom: 1;
+  }
+
     html, body, #canvas{
       width: 100%;
       height: 100%;
@@ -13,27 +28,55 @@
     }
 
     body{
-      background-color: #efefef;
+      background-color: #fff;
+      color: #666;
+    }
+    a{
+      color: #000;
+      font-weight:bold;
+      text-decoration:none;
     }
 
+    a:hover{
+      text-decoration: underline;
+    }
+
+    h1{
+      color: #c30;
+    }
+    h2{
+      font-size: 14px;
+    }
     .container{
-      width: 95%;
+      width: 90%;
       left: 50%;
       margin:auto;
     }
 
+    #intro{
+      font-size: smaller;
+
+    }
+
+    #canvas{
+      background-color:  #efefef;
+      padding: 8px;
+    }
+
     #canvas a{
       text-decoration: none;
-      color: rgba(204, 51, 0, 1);
+      color: #000;
       display:inline-block;
-      background: #fff;
-      padding: 1px 2px;
-      margin:1px 2px;
+      /*background: #fff;*/
+      padding: 4px;
+      margin:0 2px;
       font-size: 14px;
+      font-weight: normal;
+      border-radius: 5px;
     }
     #canvas a.selected, #canvas a:hover{
-      color: #fff;
-      background: rgba(204, 51, 0, 1);
+      color: #000;
+      background: rgba(204, 51, 0, 0.5);
     }
     .city-item .circle{
       border-radius: 100%;
@@ -45,6 +88,12 @@
       position: absolute;
       width: 100%;
       height: 100%;
+    }
+
+    .stat-selector{
+      margin: 8px 1px;
+      padding: 4px;
+      background-color: #fff;
     }
 
     .city-item .circle.data2{
@@ -61,17 +110,21 @@
       margin:1px;
       padding:0;
       text-align: center;
-      font-size: 14px;
-      color: #000;
+      font-size: 12px;
+      color: rgba(0,0,0, 0.8);
       font-weight: normal;
     }
 
     .city-item h4{
-      position: absolute;
-      bottom:0;
+      font-weight: normal;
       margin:1px;
       padding: 0;
-      font-size: 24px;
+      font-size: 11px;
+    }
+    .city-item .headings{
+      padding-top: 4px;
+      text-algin:center;
+      width: 100%;
     }
 
     h4.data2{
@@ -83,44 +136,54 @@
     h4.data1{
       text-align: center;
       width: 100%;
-      color: rgba(0,0,0, 0.2);
+      color: rgba(0,0,0, 0.5);
+      min-height: 14px
     }
 
     .city-item{
+
       background-color: #fff;
-      width: 118px;
-      height: 118px;
-      display:inline-block;
-      margin:1px ;
-      position: relative;
+      float:left;
+      margin:1px;
       padding:0;
+        width: 100px;
     }
-    .stat-selector{
-      margin: 10px 0;
+
+    .circleContainer{
+    position: relative;
+      width: 94px;
+      height: 94px;
+      left: 3px;
+    }
+
+
+    #footer{
+      clear:left;
+      font-size: 11px;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+  <div id="intro">
+  <p>
+    <a href="/">pictographic</a>
+  </p>
   <h1>Cities of the world</h1>
-  <h2>By <a href="http://admataz.com">admataz</a></h2>
+  <h2>A data visualisation by <a href="http://admataz.com">admataz</a> for <a href="http://pictographic.io">pictographic.io</a></h2>
 
-  <p>My idea here is simplicity, and limiting the complex and diverse set of data to a view with single facets of the data that allow comparison.</p>
-
-  <p>I started this project as a tool-sharpening exercise. My goal was, after a recent hiatus from data visualisation work, to get to know some of the tools again, and get my head back into dealing with data - the processes of sourcing, cleaning, exploring, wrangling and transforming into something visual and interactive. You can read more and download the full source <a href="https://github.com/pictographic/global-city-data" target="_blank">on github</a>.</p>
-
-  <p>I found this collection of city data at the Greater London Authority <a href="http://data.london.gov.uk/dataset/global-city-data" target="_blank">London Datastore</a>. For a more complete explanation of the figures, their units of measurement, and what they mean  refer to the original <a href="http://www.nyc.gov/html/ia/gprb/html/global/global.shtml" target="_blank">New York City Global City database</a> and the cited sources. For my purposes, this collection of numbers was enough for this experiment - but a better annotated and labeled version would be required to make this a full piece of data-driven communication.</p>
-
-  <p>Explore by selecting a dataset…</p>
-
-
-  <div id="canvas">
-
+  <p>The idea here is to simplify the view a diverse set of data and allow comparison of subjects (cities) via single facets of their data. I made this visualisation as a tool-sharpening exercise - read more on my thoughts in producing this and see the full source code <a href="https://github.com/pictographic/global-city-data" target="_blank">on the pictographic github page</a>. The data was downloaded from <a href="http://data.london.gov.uk/dataset/global-city-data" target="_blank">London Datastore</a>. For a more complete explanation of the figures, sources and units of measurement  refer to the original <a href="http://www.nyc.gov/html/ia/gprb/html/global/global.shtml" target="_blank">New York City Global City database</a>.</p>
+  <p>Explore by selecting a data facet…</p>
   </div>
 
-  <p>Created by <a href="http://admataz.com">admataz</a> for fun and learning and experimentation.  Original concpets and code &copy; 2016 Adam Davis licensed under <a href="./license.txt">MIT</a>.</p>
+  <div id="canvas" class="cf">
 
+  </div>
+  <div id="footer">
+  <p>Created by <a href="http://admataz.com">admataz</a> for fun and learning and experimentation.  Original concepts and code &copy; 2016 Adam Davis licensed under <a href="./license.txt">MIT</a>.</p>
+  </div>
 </div>
 <script type="text/javascript" src="./js/global_cities.min.js"></script>
 </body>
