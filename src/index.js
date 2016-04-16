@@ -2,16 +2,22 @@ import dataLoaded from './data/cities.json';
 import React from 'react';
 import reactDOM from 'react-dom';
 import _ from 'lodash';
-import d3Scale from 'd3-scale';
-
+/*
+TODO: only import the lodash modules we need:
+map
+max
+min
+filter
+ */
+// import d3Scale from 'd3-scale';
 
 import City from './components/city';
 import DataSelector from './components/dataFieldControls';
 
-var d = document.getElementById('canvas');
+var d = document.getElementById( 'canvas' );
 var dataFiltered = [];
 var keyIndex = 1;
-var keyFields = Object.keys(dataLoaded[0]);
+var keyFields = Object.keys( dataLoaded[ 0 ] );
 var dataFields = [
   'City_Area_km2',
   'Metro_Area_km2',
@@ -45,96 +51,87 @@ var dataFields = [
 ];
 
 
-function filterData(k) {
-  var data = _.map(dataLoaded, (i)=>{
-    return Math.sqrt(i[k]*2)/Math.PI;
+function filterData( k ) {
+
+  var data_orig = _.map( dataLoaded, ( i ) => {
+    return i[ k ];
+  } );
+
+  var max = _.max( data_orig );
+  var min = _.min( data_orig );
+
+  var data = _.filter( data_orig, ( i ) => {
+    return i;
+  } );
+  var toonehundred = 100 / (Math.sqrt(2)/Math.PI);
+  return ((val) => {
+      return   toonehundred * (Math.sqrt( val/max * 2 ) / Math.PI );
   });
-
-data = _.filter(data, (i)=>{
-  return i;
-})
-
-  var x = d3Scale.scaleLinear()
-    .domain([_.min(data), _.max(data)])
-    .range([3, 100]);
-  return x;
 }
 
-var App = React.createClass({
-
-  onSelectChanged(s, dataset) {
-
-    if (!dataset) {
+var App = React.createClass( {
+  onSelectChanged( s, dataset ) {
+    if ( !dataset ) {
       dataset = 'dataSelector1';
     }
+    if ( dataset === 'dataSelector1' ) {
 
-    if (dataset === 'dataSelector1') {
-
-      this.setState({
+      this.setState( {
         currentDataSet1: s
-      })
+      } )
     }
-
-    if (dataset === 'dataSelector2') {
-
-      this.setState({
+    if ( dataset === 'dataSelector2' ) {
+      this.setState( {
         currentDataSet2: s
-      })
+      } )
     }
   },
 
   getInitialState() {
     return {
-      currentDataSet1: dataFields[0],
-      currentDataSet2: dataFields[1]
+      currentDataSet1: dataFields[ 0 ],
+      currentDataSet2: dataFields[ 1 ]
     }
   },
   render() {
-    var scale = filterData(this.state.currentDataSet1);
-
+    var scale = filterData( this.state.currentDataSet1 );
     return ( < div >
-
       < DataSelector dataFields = {
         dataFields
       }
       selected = {
         this.state.currentDataSet1
       }
-
       onSelectChanged = {
         this.onSelectChanged
       }
       id = "dataSelector1" / >
-
-       {
-
-      dataLoaded.map((c) => {
-        var itemVal = scale(Math.sqrt(c[this.state.currentDataSet1]*2)/Math.PI);
-
-        return <City key = {
-          c.City
-        }
-        city = {
-          c
-        }
-        val = {
-          Math.ceil(itemVal)
-        }
-
-        dataKey = {
-          this.state.currentDataSet1
-        }
-
-        />
-      })
-    } < /div>
-  )
-}
-});
+      {
+        dataLoaded.map( ( c ) => {
+          var itemVal = scale(  c[ this.state.currentDataSet1 ]  );
+          console.log(itemVal);
+          // var itemVal = scale( Math.sqrt( c[ this.state.currentDataSet1 ] * 2 ) / Math.PI );
+          return <City key = {
+            c.City
+          }
+          city = {
+            c
+          }
+          val = {
+            Math.ceil( itemVal )
+          }
+          dataKey = {
+            this.state.currentDataSet1
+          }
+          />
+        } )
+      } < /div>
+    )
+  }
+} );
 
 function init() {
-  reactDOM.render( < App / > , d);
+  reactDOM.render( < App / > , d );
 }
-
 
 init();

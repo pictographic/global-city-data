@@ -38293,35 +38293,36 @@ var keyFields = Object.keys(_cities2.default[0]);
 var dataFields = ['City_Area_km2', 'Metro_Area_km2', 'City_Population_millions', 'Metro_Population_millions', 'Foreign_Born', 'Annual_Population_Growth', 'GDP_Per_Capita_thousands_PPP_rates_per_resident', 'Share_of_Global_500_Companies', 'Unemployment_Rate', 'Poverty_Rate', 'Mass_Transit_Commuters', 'Major_Airports', 'Major_Ports', 'Students_Enrolled_in_Higher_Education', 'Percent_of_Population_with_Higher_Education', 'Higher_Education_Institutions', 'Total_Tourists_Annually_millions', 'Foreign_Tourists_Annually_millions', 'Domestic_Tourists_Annually_millions', 'Hotel_Rooms_thousands', 'Infant_Mortality_Deaths_per_1_000_Births', 'Life_Expectancy_in_Years_Male', 'Life_Expectancy_in_Years_Female', 'Physicians_per_100_000_People', 'Number_of_Hospitals', 'Number_of_Museums', 'Number_of_Cultural_and_Arts_Organizations', 'Green_Spaces_km2', 'Air_Quality'];
 
 function filterData(k) {
-  var data = _lodash2.default.map(_cities2.default, function (i) {
-    return Math.sqrt(i[k] * 2) / Math.PI;
+
+  var data_orig = _lodash2.default.map(_cities2.default, function (i) {
+    return i[k];
   });
 
-  data = _lodash2.default.filter(data, function (i) {
+  var max = _lodash2.default.max(data_orig);
+  var min = _lodash2.default.min(data_orig);
+
+  var data = _lodash2.default.filter(data_orig, function (i) {
     return i;
   });
-
-  var x = _d3Scale2.default.scaleLinear().domain([_lodash2.default.min(data), _lodash2.default.max(data)]).range([3, 100]);
-  return x;
+  var toonehundred = 100 / (Math.sqrt(2) / Math.PI);
+  return function (val) {
+    return toonehundred * (Math.sqrt(val / max * 2) / Math.PI);
+  };
 }
 
 var App = _react2.default.createClass({
   displayName: 'App',
   onSelectChanged: function onSelectChanged(s, dataset) {
-
     if (!dataset) {
       dataset = 'dataSelector1';
     }
-
     if (dataset === 'dataSelector1') {
 
       this.setState({
         currentDataSet1: s
       });
     }
-
     if (dataset === 'dataSelector2') {
-
       this.setState({
         currentDataSet2: s
       });
@@ -38337,24 +38338,21 @@ var App = _react2.default.createClass({
     var _this = this;
 
     var scale = filterData(this.state.currentDataSet1);
-
     return _react2.default.createElement(
       'div',
       null,
       _react2.default.createElement(_dataFieldControls2.default, { dataFields: dataFields,
         selected: this.state.currentDataSet1,
-
         onSelectChanged: this.onSelectChanged,
         id: 'dataSelector1' }),
       _cities2.default.map(function (c) {
-        var itemVal = scale(Math.sqrt(c[_this.state.currentDataSet1] * 2) / Math.PI);
-
+        var itemVal = scale(c[_this.state.currentDataSet1]);
+        console.log(itemVal);
+        // var itemVal = scale( Math.sqrt( c[ this.state.currentDataSet1 ] * 2 ) / Math.PI );
         return _react2.default.createElement(_city2.default, { key: c.City,
           city: c,
           val: Math.ceil(itemVal),
-
           dataKey: _this.state.currentDataSet1
-
         });
       }),
       ' '
