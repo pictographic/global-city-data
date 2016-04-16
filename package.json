@@ -1,6 +1,6 @@
 {
   "name": "global_cities",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "dataviz of global city stats",
   "main": "index.js",
   "scripts": {
