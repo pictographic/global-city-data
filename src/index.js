@@ -58,11 +58,11 @@ function filterData( k ) {
   } );
 
   var max = _.max( data_orig );
-  var min = _.min( data_orig );
-
-  var data = _.filter( data_orig, ( i ) => {
-    return i;
-  } );
+  // var min = _.min( data_orig );
+  //
+  // var data = _.filter( data_orig, ( i ) => {
+  //   return i;
+  // } );
   var toonehundred = 100 / (Math.sqrt(2)/Math.PI);
   return ((val) => {
       return   toonehundred * (Math.sqrt( val/max * 2 ) / Math.PI );
@@ -109,7 +109,7 @@ var App = React.createClass( {
       {
         dataLoaded.map( ( c ) => {
           var itemVal = scale(  c[ this.state.currentDataSet1 ]  );
-          console.log(itemVal);
+          // console.log(itemVal);
           // var itemVal = scale( Math.sqrt( c[ this.state.currentDataSet1 ] * 2 ) / Math.PI );
           return <City key = {
             c.City
